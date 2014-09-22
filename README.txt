@@ -1,6 +1,4 @@
-EasyBingo Readme
-
-INTRODUCTION
+EASYBINGO
 
 A quick and easy way to make a randomized, custom printable bingo card from whatever data set you'd like to provide. Uses randomseed.js to allow verification of cards through consistent custom random seeds, if you really want to take bingo that seriously. 
 
