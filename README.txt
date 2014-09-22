@@ -15,3 +15,9 @@ Change index.html however you like, at your own risk. Optimize my JavaScript if 
 logobg.png is displayed behind the bingo card to give a tiny amount of visual substance. It's going to get obscured by the squares but it really ties the page together, y'know?
 
 I'd appreciate it if you kept my name at the bottom but if it bugs you that much you can remove it.
+
+EXAMPLE
+
+http://www.site.uottawa.ca/~jbala010/bingo/
+
+A bingo game using common posts or themes on my university's anonymous online Facebook messageboard.
