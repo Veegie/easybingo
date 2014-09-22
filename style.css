@@ -1,0 +1,34 @@
+body
+{
+	background-image: url('images/background.png');
+	background-color: #717182;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.seedbox
+{
+	width: 294px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.footer
+{
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	color: #f2f2f2;
+	font-size: 1em;
+}
+
+.onlyprint {display: none;}
+
+@media print
+{
+	.no-print, .no-print *
+	{
+		display: none !important;
+	}
+	
+	.onlyprint {display: block;}
+}

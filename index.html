@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+  <meta charset="utf-8"/>
+  <title>Bingo</title>
+    <!-- Pull the Quintus engine -->
+    <script src='http://cdn.html5quintus.com/v0.2.0/quintus-all.min.js'></script>
+    <script src='scripts/seedrandom.min.js'></script>
+    <script src='scripts/bingoData.js'></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+   <body>
+	<div class="seedbox no-print">
+		<input id="newseed" type="text"/>
+		<button onClick="getNewSeed()">Generate New Card</button>
+	</div>
+	<div class="seedbox onlyprint">
+		<p>Card Random Seed: <div id="printSeed"></div>
+	</div>
+     <script>
+     
+     var currentSeed = Math.floor(Math.random() * 10000);
+     Math.seedrandom(currentSeed);
+     var cellArray = [[],[],[],[],[]];
+     var cellsText = [[],[],[],[],[]];
+     var nextData = -1;
+     document.querySelector('#printSeed').innerHTML = currentSeed;
+     document.getElementById('printSeed').innerHTML = currentSeed;
+     document.getElementById('newseed').value = currentSeed;
+     currentSeed = document.getElementById('newseed').value;
+     
+     function wordwrap( str, width, brk, cut ) 
+     {
+	brk = brk || '\n';
+	width = width || 75;
+	cut = cut || false;
+	
+	if (!str) { return str; }
+	
+	var regex = '.{1,' +width+ '}(\\s|$)' + (cut ? '|.{' +width+ '}|.+$' : '|\\S+?(\\s|$)');
+	
+	return str.match( RegExp(regex, 'g') ).join( brk );
+     }
+     
+     function getNewSeed()
+     {
+	currentSeed = document.getElementById('newseed').value;
+	document.querySelector('#printSeed').innerHTML = currentSeed;
+	document.getElementById('printSeed').innerHTML = currentSeed;
+	repopulate(currentSeed);
+     }
+     
+     function repopulate(seed)
+     {
+	var usedCells = [];
+	Math.seedrandom(seed);
+	for(var i = 0; i < 5; i++)
+	{
+		for(var j = 0; j < 5; j++)
+		{
+			nextData = Math.floor(Math.random() * bingoData.length);
+			if(usedCells.indexOf(nextData) > -1)
+			{
+				j--;
+			}
+			else
+			{
+				cellsText[i][j].p.label = wordwrap(bingoData[nextData],16,'\n');				
+				usedCells.push(nextData);
+			}
+		}
+	}
+     }
+     
+      var Q = Quintus().include("Sprites, Scenes, UI, Touch").setup({
+	      width: 670,
+	      height: 700,
+	      scaleToFit: true}).touch();
+              
+	Q.Sprite.extend("Logo",
+	{
+		init: function(p) 
+		{
+			this._super({ asset: "logobg.png",
+			x: 335,
+			y: 400});
+		}
+	});
+	
+	Q.Sprite.extend("Bingo",
+	{
+		init: function(p)
+		{
+			this._super(
+			{
+				asset: "bingo.png",
+				x: 335,
+				y: 50
+			});
+		}
+	});
+	     
+	Q.scene("bingoCard",function(stage)
+	{
+		stage.insert(new Q.Logo());
+		stage.insert(new Q.Bingo());
+		for(var i = 0; i < 5; i++)
+		{
+			for(var j = 0; j < 5; j++)
+			{
+				cellArray[i][j] = stage.insert(new Q.UI.Container(
+				{
+					fill: "white",
+					border: 2,
+					x: (73 + (i*30) + (i*100)),
+					y: (150+ (j*13) + (j*100))
+				}));
+				cellsText[i][j] = stage.insert(new Q.UI.Text(
+				{
+					label: "Post so vague  d\nthat the\nsubject\nwouldn't even\nknow they've\nbeen Spotted",
+					size: 12,
+					align: 'center',
+					color: "black"
+				}),cellArray[i][j]);
+				cellArray[i][j].fit(10,10);
+			}
+		}
+		repopulate(currentSeed);
+	});
+	     
+	Q.load([ "logobg.png", "bingo.png" ], function() 
+	{
+		Q.stageScene("bingoCard");
+	});
+      
+      </script>
+      <br>
+      <div class="footer no-print">
+	<p>EasyBingo by <a href="https://twitter.com/Veegie_">Joshua Balanuik</a> with <a href=http://html5quintus.com/>Quintus</a>.</p>
+      </div>
+   </body>
+</html>
