@@ -18,6 +18,6 @@ I'd appreciate it if you kept my name at the bottom but if it bugs you that much
 
 EXAMPLE
 
-http://www.site.uottawa.ca/~jbala010/bingo/
+http://www.breen.space
 
-A bingo game using common posts or themes on my university's anonymous online Facebook messageboard.
+A bingo game based on the films of the cinematic genius, Neil Breen.
